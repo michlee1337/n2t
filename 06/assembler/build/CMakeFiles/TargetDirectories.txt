@@ -1,0 +1,4 @@
+/Users/michelleslee/Documents/code/nand2tetris/projects/06/build/CMakeFiles/rebuild_cache.dir
+/Users/michelleslee/Documents/code/nand2tetris/projects/06/build/CMakeFiles/edit_cache.dir
+/Users/michelleslee/Documents/code/nand2tetris/projects/06/build/CMakeFiles/asm.dir
+/Users/michelleslee/Documents/code/nand2tetris/projects/06/build/CMakeFiles/assembler.dir
