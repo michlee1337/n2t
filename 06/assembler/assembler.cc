@@ -1,18 +1,15 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <bitset>
+#include "parser.h"
+#include "translator.h"
 
 #include "assembler.h"
 
 namespace n2t {
 
-int Assembler::process(std::string asm_file) {
-    std::ifstream file(asm_file);
+int Assembler::assemble(std::string asm_file) {
 
     // first pass to initialize symbol table on construction
-    Parser parser(file);
-    Translater translator;
+    Parser parser(asm_file);
+    Translator translator;
 
     // get symbols
     std::string line;
@@ -30,55 +27,10 @@ int Assembler::process(std::string asm_file) {
                 std::cout << inst << std::endl;
                 break;
         }
-        // // get symbols
-        // // ignore comment and white spcae
-        // if (line.substr(0, 2) == "//" or std::all_of(
-        //     line.begin(),line.end(), isspace)) {
-        //     continue;
-        // } else if (line[0] != "@") {
-        //     process_c(&line);
-        // } else if (std::isdigit(line[1])) {
-        //     process_a(&line);
-        // } else if (line[1] == "(") {
-        //     process_label(&line);
-        // } else {
-        //     process_value(&line);
-        // }
     }
     std::cout << "done" << std::endl;
     return 0;
 }
-
-// int Assembler::process_a(std:string& line) {
-//     line_numer ++;
-//     int address = std::stoi(line.substr(1,15));
-//     std::cout << line_number << line << " -> " << address << std::endl;
-// }
-
-// int Assembler::process_c(std:string& line) {
-
-//     // handle comp
-//     // handle dest 
-//     dest = parse_dest(line);
-
-
-//     std::cout << line_number << line << " -> " << address << std::endl;
-// }
-
-// int Assembler::process_label(std:string& line) {
-//     std::cout << "SYM: " << line << std::endl;
-//     // value
-//     // label
-//     if (line[1]) == 
-// }
-
-// int Assembler::process_value(std:string& line) {
-//     std::cout << "SYM: " << line << std::endl;
-//     // value
-//     // label
-//     if (line[1]) == 
-// }
-
 
 // // private methods
 // std::string Assembler::parse_comp(std:string& line) {
