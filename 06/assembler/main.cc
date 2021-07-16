@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
    }
    // assembler.process(std::string(argv[1]));
    n2t::Assembler assembler;
-   assembler.process(std::string(argv[1]));
+   assembler.assemble(std::string(argv[1]));
 
    return 0;
 
