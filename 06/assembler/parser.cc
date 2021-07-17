@@ -10,7 +10,7 @@ Parser::Parser(std::string asm_file) {
 bool Parser::get_next() {
     while (std::getline(asm_file_, cur_line_)) {
         ++cur_line_number_;
-        if (!cur_line_.empty() && !isComment()) {
+        if (!isBlank() && !isComment()) {
             return true;
         }
     }
@@ -51,4 +51,9 @@ std::string Parser::cur_line() {
 bool Parser::isComment() {
     return (cur_line_[0] == '/' && cur_line_[1] == '/');
 }
+
+bool Parser::isBlank() {
+    return (std::all_of(cur_line_.begin(),cur_line_.end(),isspace));
+}
+
 }

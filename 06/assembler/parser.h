@@ -17,6 +17,7 @@ private:
 	int cur_line_number_;
 	std::string cur_line_;
     bool isComment();
+    bool isBlank();
 
 public:
 	Parser(std::string asm_file);  // parse symbols on construction
