@@ -32,14 +32,23 @@ std::string Parser::addr() {
 };
 
 std::string Parser::dest() {
+    if (commandType() != C_COMMAND) {
+        throw "Command is not an C command";
+    }
     return "";
 };
 
 std::string Parser::comp() {
+    if (commandType() != C_COMMAND) {
+        throw "Command is not an C command";
+    }
     return "";
 };
 
 std::string Parser::jump() {
+    if (commandType() != C_COMMAND) {
+        throw "Command is not an C command";
+    }
     return "";
 };
 
