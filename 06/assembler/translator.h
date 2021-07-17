@@ -54,6 +54,7 @@ private:
 
 
 public:
+    std::bitset<16> addr(std::string addr_asm);
     std::bitset<16> dest(std::string dest_asm);
     std::bitset<16> comp(std::string comp_asm);
     std::bitset<16> jump(std::string jump_asm);

@@ -2,6 +2,11 @@
 
 namespace n2t {
 
+std::bitset<16> Translator::addr(std::string addr_asm) {
+    std::bitset<16> addr(std::stoi(addr_asm));
+    return addr;
+}
+
 std::bitset<16> Translator::dest(std::string dest_asm) {
     return dest_map_[dest_asm];
 }
