@@ -17,28 +17,31 @@ bool Parser::get_next() {
     return false;
 }
 
-    CommandType Parser::commandType() {
-        if (cur_line_[0] == '@') {
-            return A_COMMAND;
-        }
-        return C_COMMAND;
+CommandType Parser::commandType() {
+    if (cur_line_[0] == '@') {
+        return A_COMMAND;
     }
+    return C_COMMAND;
+}
 
-    std::string Parser::addr() {
-        return "";
-    };
+std::string Parser::addr() {
+    if (commandType() != A_COMMAND) {
+        throw "Command is not an A command";
+    }
+    return cur_line_.substr(1, std::string::npos);
+};
 
-    std::string Parser::dest() {
-        return "";
-    };
+std::string Parser::dest() {
+    return "";
+};
 
-    std::string Parser::comp() {
-        return "";
-    };
+std::string Parser::comp() {
+    return "";
+};
 
-    std::string Parser::jump() {
-        return "";
-    };
+std::string Parser::jump() {
+    return "";
+};
 
 int Parser::cur_line_number() {
     return cur_line_number_;
