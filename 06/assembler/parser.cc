@@ -35,7 +35,11 @@ std::string Parser::dest() {
     if (commandType() != C_COMMAND) {
         throw "Command is not an C command";
     }
-    return "";
+    std::size_t i = cur_line_.find("=");
+    if (i == std::string::npos) {
+        return "";
+    }
+    return cur_line_.substr(0, i);
 };
 
 std::string Parser::comp() {
