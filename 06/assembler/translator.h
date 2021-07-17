@@ -12,6 +12,7 @@ class Translator {
 
 private:
     static inline std::unordered_map< std::string, std::bitset<16> > dest_map_ = {
+        {"", 0b0000000000000000},
         {"M", 0b0000000000001000},
         {"D", 0b0000000000010000},
         {"MD", 0b0000000000011000},
@@ -43,6 +44,7 @@ private:
     };
 
     static inline std::unordered_map< std::string, std::bitset<16> > jump_map_ = {
+        {"", 0b0000000000000000},
         {"JGT", 0b0000000000000001},
         {"JEQ", 0b0000000000000010},
         {"JGE", 0b0000000000000011},
