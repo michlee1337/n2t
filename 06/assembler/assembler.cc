@@ -12,7 +12,6 @@ int Assembler::assemble(std::string asm_file) {
     Translator translator;
 
     // get symbols
-    std::string line;
     while (parser.get_next()) {
         switch (parser.commandType()) {
             case A_COMMAND:
