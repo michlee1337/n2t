@@ -4,7 +4,7 @@ namespace n2t {
 
 Parser::Parser(std::string asm_file) {
     asm_file_.open(asm_file);
-    cur_line_number_ = -1;
+    cur_line_number_ = 0;
 }
 
 bool Parser::get_next() {
