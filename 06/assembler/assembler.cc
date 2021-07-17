@@ -14,17 +14,18 @@ int Assembler::assemble(std::string asm_file) {
     // get symbols
     while (parser.get_next()) {
         switch (parser.commandType()) {
-            case A_COMMAND:
-                std::cout << std::bitset<16>(parser.addr()) << std::endl;
+            case A_COMMAND: {
+                std::cout << "A: " << translator.addr(parser.addr()) << std::endl;
                 break;
-            
-            case C_COMMAND: 
+            }
+            case C_COMMAND: {
                 std::bitset<16> dest(translator.dest(parser.dest()));
                 std::bitset<16> comp(translator.comp(parser.comp()));
                 std::bitset<16> jump(translator.jump(parser.jump()));
                 std::bitset<16> inst(dest | comp | jump);
                 std::cout << inst << std::endl;
                 break;
+            }
         }
     }
     std::cout << "done" << std::endl;
