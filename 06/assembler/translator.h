@@ -4,7 +4,6 @@
 #include <string>
 #include <unordered_map>
 #include <bitset>
-#include <fstream>
 
 namespace n2t {
 
