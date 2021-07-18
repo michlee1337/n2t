@@ -53,10 +53,10 @@ std::string Parser::comp() {
     } else {
         s += 1;
     }
-    if (e != std::string::npos) {
-        e = e-s;
+    if (e == std::string::npos) {
+        e = cur_line_.length()-1;
     }
-    return cur_line_.substr(s, e);
+    return cur_line_.substr(s, e-s);
 };
 
 std::string Parser::jump() {
