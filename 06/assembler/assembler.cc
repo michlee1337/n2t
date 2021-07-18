@@ -11,11 +11,16 @@ int Assembler::assemble(std::string asm_file) {
     Parser parser(asm_file);
     Translator translator;
 
+    std::ofstream hack_file;
+    hack_file.open(asm_file.substr(0, asm_file.find(".asm")) + ".hack");
+
+
     // get symbols
     while (parser.get_next()) {
+        std::cout << "processing line " << parser.cur_line_number() << std::endl;
         switch (parser.commandType()) {
             case A_COMMAND: {
-                std::cout << "A: " << translator.addr(parser.addr()) << std::endl;
+                hack_file << translator.addr(parser.addr()) << std::endl;
                 break;
             }
             case C_COMMAND: {
@@ -23,7 +28,7 @@ int Assembler::assemble(std::string asm_file) {
                 std::bitset<16> comp(translator.comp(parser.comp()));
                 std::bitset<16> jump(translator.jump(parser.jump()));
                 std::bitset<16> inst(dest | comp | jump);
-                std::cout << inst << std::endl;
+                hack_file << inst << std::endl;
                 break;
             }
         }
@@ -32,16 +37,4 @@ int Assembler::assemble(std::string asm_file) {
     return 0;
 }
 
-// // private methods
-// std::string Assembler::parse_comp(std:string& line) {
-//     std::string asm_comp = line.substr(line.find("="), line.find(";"));
-//     return dest_map[asm_dest];
-// }
-// std::string Assembler::parse_dest(std:string& line) {
-//     if (line.find("=") == std::string::npos) {
-//         return "000";
-//     }
-//     std::string asm_dest = line.substr(1, line.find(" "));
-//     return dest_map[asm_dest];
-// }
 }
