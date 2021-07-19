@@ -4,6 +4,12 @@ set (CMAKE_CXX_STANDARD 17)
 project(asm)
 
 add_library(
+    symboltable
+    symboltable.h
+    symboltable.cc
+)
+
+add_library(
     parser
     parser.h
     parser.cc
@@ -23,6 +29,7 @@ add_library(
 
 add_executable(${PROJECT_NAME} main.cc)
 
+target_link_libraries(asm PRIVATE symboltable)
 target_link_libraries(asm PRIVATE parser)
 target_link_libraries(asm PRIVATE translator)
 target_link_libraries(asm PRIVATE assembler)
