@@ -4,12 +4,31 @@ namespace n2t {
 
 Parser::Parser(std::string asm_file) {
     asm_file_.open(asm_file);
-    cur_line_number_ = 0;
+
+    // parse by line
+    symbol_table_ = SymbolTable();
+    int line_num = 0;
+    while (std::getline(asm_file_, cur_line_)) {      
+        trimWhitespace();
+        if (cur_line_[0] == '(') {
+            symbol_table_.RegisterLabel(cur_line_.substr(1, cur_line_.length()-2), line_num);
+        } else if (isSymbol()) {
+            symbol_table_.RegisterSymbol(cur_line_.substr(1, cur_line_.length()-1));
+             ++line_num;
+        } else if(!isBlank() && !isComment()) {
+             ++line_num;
+        }
+    }
+    symbol_table_.complete();
+
+    // reset ifstream
+    asm_file_.clear();
+    asm_file_.seekg(0);
 };
 
 bool Parser::get_next() {
     while (std::getline(asm_file_, cur_line_)) {
-        ++cur_line_number_;
+        trimWhitespace();
         if (!isBlank() && !isComment()) {
             return true;
         }
@@ -28,7 +47,11 @@ std::string Parser::addr() {
     if (commandType() != A_COMMAND) {
         throw "Command is not an A command";
     }
-    return cur_line_.substr(1, std::string::npos);
+    std::string addr = cur_line_.substr(1, std::string::npos);
+    if (isSymbol()) {
+        return symbol_table_.value(addr);
+    }
+    return addr;
 };
 
 std::string Parser::dest() {
@@ -54,7 +77,7 @@ std::string Parser::comp() {
         s += 1;
     }
     if (e == std::string::npos) {
-        e = cur_line_.length()-1;
+        e = cur_line_.length();
     }
     return cur_line_.substr(s, e-s);
 };
@@ -67,16 +90,17 @@ std::string Parser::jump() {
     if (i == std::string::npos) {
         return "";
     }
-    return cur_line_.substr(i+1, cur_line_.length()-i-2);
-};
-
-int Parser::cur_line_number() {
-    return cur_line_number_;
+    return cur_line_.substr(i+1, cur_line_.length()-i-1);
 };
 
 std::string Parser::cur_line() {
     return cur_line_;
 };
+
+bool Parser::isSymbol() {
+    return (commandType() == A_COMMAND && !isdigit(cur_line_[1]));
+};
+
 
 bool Parser::isComment() {
     return (cur_line_[0] == '/' && cur_line_[1] == '/');
@@ -85,5 +109,12 @@ bool Parser::isComment() {
 bool Parser::isBlank() {
     return std::all_of(cur_line_.begin(),cur_line_.end(),isspace);
 };
+
+void Parser::trimWhitespace() {
+    const char* whitespace = " \t\n\r\f\v";
+    cur_line_.erase(0, cur_line_.find_first_not_of(whitespace));
+    cur_line_.erase(cur_line_.find_last_not_of(whitespace) + 1);
+    return;
+}
 
 }

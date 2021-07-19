@@ -5,6 +5,10 @@
 #include <unordered_map>
 #include <fstream>
 
+#include <iostream>
+
+#include "symboltable.h"
+
 namespace n2t {
 
 enum CommandType {A_COMMAND, C_COMMAND};
@@ -13,11 +17,12 @@ class Parser {
 
 private:
 	std::ifstream 	asm_file_;
-    std::unordered_map< std::string, int > symbol_table_;
-	int cur_line_number_;
+    SymbolTable symbol_table_;
 	std::string cur_line_;
+    bool isSymbol();
     bool isComment();
     bool isBlank();
+    void trimWhitespace();
 
 public:
 	Parser(std::string asm_file);  // parse symbols on construction
@@ -30,7 +35,6 @@ public:
 
     bool get_next();  // returns False if end of file
     CommandType commandType();
-    int cur_line_number();
     std::string cur_line();
 };
 
