@@ -17,7 +17,6 @@ int Assembler::assemble(std::string asm_file) {
 
     // get symbols
     while (parser.get_next()) {
-        std::cout << "processing line " << parser.cur_line_number() << std::endl;
         switch (parser.commandType()) {
             case A_COMMAND: {
                 hack_file << translator.addr(parser.addr()) << std::endl;
@@ -33,7 +32,6 @@ int Assembler::assemble(std::string asm_file) {
             }
         }
     }
-    std::cout << "done" << std::endl;
     return 0;
 }
 

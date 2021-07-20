@@ -5,8 +5,6 @@
 #include <unordered_map>
 #include <fstream>
 
-#include <iostream>
-
 #include "symboltable.h"
 
 namespace n2t {

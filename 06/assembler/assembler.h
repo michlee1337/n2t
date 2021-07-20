@@ -2,7 +2,6 @@
 #define NAND2TETRIS_ASSEMBLER
 
 #include <string>
-#include <iostream>
 #include <fstream>
 #include <bitset>
 
