@@ -2,9 +2,8 @@
 #define NAND2TETRIS_SYMBOLTABLE
 
 #include <string>
+#include <vector>
 #include <unordered_map>
-
-#include <iostream>
 
 namespace n2t {
 
@@ -14,6 +13,7 @@ enum SymbolType {LABEL, VARIABLE};
 class SymbolTable {
 
 private:
+    std::vector<std::string> symbol_order_;
     std::unordered_map< std::string, int > symbol_table_ = {
         {"SCREEN", 16384},
         {"KBD", 24576},
@@ -32,7 +32,12 @@ private:
         {"R12", 12},
         {"R13", 13},
         {"R14", 14},
-        {"R15", 15}
+        {"R15", 15},
+        {"SP", 0},
+        {"LCL", 1},
+        {"ARG", 2},
+        {"THIS", 3},
+        {"THAT", 4},
     };
 
 public:

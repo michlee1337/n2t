@@ -8,18 +8,18 @@ void SymbolTable::RegisterLabel(std::string label, int line) {
 
 void SymbolTable::RegisterSymbol(std::string symbol) {
     if (symbol_table_.find(symbol) == symbol_table_.end()) {
+        symbol_order_.push_back(symbol);  // remember insertion order
         symbol_table_[symbol] = -1;
     }
 }
 
 void SymbolTable::complete() {
     int available = 16;
-    for (auto& it: symbol_table_) {
-        if (it.second == -1) {
-            it.second = available;
+    for (std::string symbol: symbol_order_) {
+        if (symbol_table_[symbol] == -1) {
+            symbol_table_[symbol] = available;
             ++available;
         }
-        std::cout << it.first << ":"<< it.second << std::endl;
     }
     return;
 }
