@@ -9,7 +9,7 @@ Parser::Parser(std::string asm_file) {
     symbol_table_ = SymbolTable();
     int line_num = 0;
     while (std::getline(asm_file_, cur_line_)) {      
-        trimWhitespace();
+        trim();
         if (isLabel()) {
             symbol_table_.RegisterLabel(cur_line_.substr(1, cur_line_.length()-2), line_num);
         } else if (isSymbol()) {
@@ -28,7 +28,7 @@ Parser::Parser(std::string asm_file) {
 
 bool Parser::get_next() {
     while (std::getline(asm_file_, cur_line_)) {
-        trimWhitespace();
+        trim();
         if (!isBlank() && !isComment() && !isLabel()) {
             return true;
         }
@@ -114,7 +114,14 @@ bool Parser::isBlank() {
     return std::all_of(cur_line_.begin(),cur_line_.end(),isspace);
 };
 
-void Parser::trimWhitespace() {
+void Parser::trim() {
+    // rmv comments
+    size_t i = cur_line_.find_first_of('/');
+    if (i != std::string::npos) {
+        cur_line_.erase(i);
+    }
+
+    // rmv whitespace
     const char* whitespace = " \t\n\r\f\v";
     cur_line_.erase(0, cur_line_.find_first_not_of(whitespace));
     cur_line_.erase(cur_line_.find_last_not_of(whitespace) + 1);

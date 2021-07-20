@@ -23,7 +23,7 @@ private:
     bool isLabel();
     bool isComment();
     bool isBlank();
-    void trimWhitespace();
+    void trim();
 
 public:
 	Parser(std::string asm_file);  // parse symbols on construction
