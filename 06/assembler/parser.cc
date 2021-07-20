@@ -10,7 +10,7 @@ Parser::Parser(std::string asm_file) {
     int line_num = 0;
     while (std::getline(asm_file_, cur_line_)) {      
         trimWhitespace();
-        if (cur_line_[0] == '(') {
+        if (isLabel()) {
             symbol_table_.RegisterLabel(cur_line_.substr(1, cur_line_.length()-2), line_num);
         } else if (isSymbol()) {
             symbol_table_.RegisterSymbol(cur_line_.substr(1, cur_line_.length()-1));
@@ -29,7 +29,7 @@ Parser::Parser(std::string asm_file) {
 bool Parser::get_next() {
     while (std::getline(asm_file_, cur_line_)) {
         trimWhitespace();
-        if (!isBlank() && !isComment()) {
+        if (!isBlank() && !isComment() && !isLabel()) {
             return true;
         }
     }
@@ -95,6 +95,10 @@ std::string Parser::jump() {
 
 std::string Parser::cur_line() {
     return cur_line_;
+};
+
+bool Parser::isLabel() {
+    return (cur_line_[0] == '(');
 };
 
 bool Parser::isSymbol() {

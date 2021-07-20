@@ -20,6 +20,7 @@ private:
     SymbolTable symbol_table_;
 	std::string cur_line_;
     bool isSymbol();
+    bool isLabel();
     bool isComment();
     bool isBlank();
     void trimWhitespace();
