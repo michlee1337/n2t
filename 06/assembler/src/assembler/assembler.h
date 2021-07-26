@@ -9,7 +9,7 @@ namespace n2t {
 
 class Assembler {
  public:
-    int assemble(const std::string asm_file);
+  int assemble(const std::string asm_file);
 };
 
 }
