@@ -1,4 +1,4 @@
-#include "symboltable.h"
+#include "symboltable/symboltable.h"
 
 namespace n2t {
 

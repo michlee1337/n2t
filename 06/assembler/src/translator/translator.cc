@@ -1,4 +1,4 @@
-#include "translator.h"
+#include "translator/translator.h"
 
 namespace n2t {
 

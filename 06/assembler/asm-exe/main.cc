@@ -1,5 +1,5 @@
 #include <iostream>
-#include "assembler.h"
+#include "assembler/assembler.h"
 
 int main(int argc, char* argv[])
 {

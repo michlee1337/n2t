@@ -1,7 +1,7 @@
-#include "parser.h"
-#include "translator.h"
+#include "parser/parser.h"
+#include "translator/translator.h"
 
-#include "assembler.h"
+#include "assembler/assembler.h"
 
 namespace n2t {
 
