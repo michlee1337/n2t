@@ -6,7 +6,6 @@
 namespace n2t {
 
 int Assembler::assemble(std::string asm_file) {
-
     // first pass to initialize symbol table on construction
     Parser parser(asm_file);
     Translator translator;
@@ -35,4 +34,4 @@ int Assembler::assemble(std::string asm_file) {
     return 0;
 }
 
-}
+}  // namespace n2t
