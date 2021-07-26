@@ -8,14 +8,17 @@ Parser::Parser(std::string asm_file) {
     // parse by line
     symbol_table_ = SymbolTable();
     int line_num = 0;
-    while (std::getline(asm_file_, cur_line_)) {      
+    while (std::getline(asm_file_, cur_line_)) {
         trim();
         if (isLabel()) {
-            symbol_table_.RegisterLabel(cur_line_.substr(1, cur_line_.length()-2), line_num);
+            symbol_table_.RegisterLabel(
+              cur_line_.substr(1, cur_line_.length()-2),
+              line_num);
         } else if (isSymbol()) {
-            symbol_table_.RegisterSymbol(cur_line_.substr(1, cur_line_.length()-1));
+            symbol_table_.RegisterSymbol(
+              cur_line_.substr(1, cur_line_.length()-1));
              ++line_num;
-        } else if(!isBlank() && !isComment()) {
+        } else if (!isBlank() && !isComment()) {
              ++line_num;
         }
     }
@@ -24,7 +27,7 @@ Parser::Parser(std::string asm_file) {
     // reset ifstream
     asm_file_.clear();
     asm_file_.seekg(0);
-};
+}
 
 bool Parser::get_next() {
     while (std::getline(asm_file_, cur_line_)) {
@@ -34,14 +37,14 @@ bool Parser::get_next() {
         }
     }
     return false;
-};
+}
 
 CommandType Parser::commandType() {
     if (cur_line_[0] == '@') {
         return A_COMMAND;
     }
     return C_COMMAND;
-};
+}
 
 std::string Parser::addr() {
     if (commandType() != A_COMMAND) {
@@ -52,7 +55,7 @@ std::string Parser::addr() {
         return symbol_table_.value(addr);
     }
     return addr;
-};
+}
 
 std::string Parser::dest() {
     if (commandType() != C_COMMAND) {
@@ -63,7 +66,7 @@ std::string Parser::dest() {
         return "";
     }
     return cur_line_.substr(0, i);
-};
+}
 
 std::string Parser::comp() {
     if (commandType() != C_COMMAND) {
@@ -80,7 +83,7 @@ std::string Parser::comp() {
         e = cur_line_.length();
     }
     return cur_line_.substr(s, e-s);
-};
+}
 
 std::string Parser::jump() {
     if (commandType() != C_COMMAND) {
@@ -91,28 +94,28 @@ std::string Parser::jump() {
         return "";
     }
     return cur_line_.substr(i+1, cur_line_.length()-i-1);
-};
+}
 
 std::string Parser::cur_line() {
     return cur_line_;
-};
+}
 
 bool Parser::isLabel() {
     return (cur_line_[0] == '(');
-};
+}
 
 bool Parser::isSymbol() {
     return (commandType() == A_COMMAND && !isdigit(cur_line_[1]));
-};
+}
 
 
 bool Parser::isComment() {
     return (cur_line_[0] == '/' && cur_line_[1] == '/');
-};
+}
 
 bool Parser::isBlank() {
-    return std::all_of(cur_line_.begin(),cur_line_.end(),isspace);
-};
+    return std::all_of(cur_line_.begin(), cur_line_.end(), isspace);
+}
 
 void Parser::trim() {
     // rmv comments
@@ -128,4 +131,4 @@ void Parser::trim() {
     return;
 }
 
-}
+}  // namespace n2t
