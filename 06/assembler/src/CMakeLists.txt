@@ -1,3 +1,5 @@
+## LIBRARIES
+
 add_library(
   symboltable
   symboltable/symboltable.h
@@ -26,3 +28,21 @@ target_include_directories(symboltable PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 target_include_directories(parser PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 target_include_directories(translator PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 target_include_directories(assembler PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
+## TESTING ##
+
+add_executable(
+  translator_test
+  translator/translator_test.cc
+)
+
+target_link_libraries(
+  translator_test
+  PUBLIC gtest_main
+  PUBLIC translator
+)
+
+add_test(
+  NAME translator_test
+  COMMAND translator_test
+)
