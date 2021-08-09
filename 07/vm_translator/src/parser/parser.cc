@@ -45,4 +45,21 @@ CommandType Parser::commandType() {
   // TODO: add other commandtypes
 }
 
+std::string Parser::arg1() {
+  if (commandType() == CommandType::C_RETURN) {
+    throw "no arguments in a return command";
+  }
+  return cur_line_.substr(0, cur_line_.find(" "));
+}
+
+std::string Parser::arg2() {
+  if (commandType() != CommandType::C_PUSH &&
+      commandType() != CommandType::C_POP &&
+      commandType() != CommandType::C_FUNCTION &&
+      commandType() != CommandType::C_CALL) {
+    throw "This command does not have second argument";
+  }
+  return cur_line_.substr(cur_line_.find(" ")+1, std::string::npos);
+}
+
 }  // namespace n2t
