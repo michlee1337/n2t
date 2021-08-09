@@ -18,14 +18,14 @@ enum CommandType {C_ARITHMETIC,
 
 class Coder {
  private:
-  ofstream f_;
+  std::ostream& of_;
 
  public:
-  explicit Coder(std::string outfile);  // open ofstream
+  Coder (std::ostream &outstream) : of_(outstream) {};
   int writeArithmetic();
   int writePushPop();
   int close();
-}
+};
 
 }  // namespace n2t
 

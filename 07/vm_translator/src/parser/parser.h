@@ -18,11 +18,11 @@ enum CommandType {C_ARITHMETIC,
 
 class Parser {
  private:
-  ifstream f_;
+  std::istream& in_;
   std::string cur_line_;
 
  public:
-  explicit Parser(std::string asm_file);  // open ifstream
+  explicit Parser(std::istream &instream) : in_(instream) {};
   bool hasMoreCommands();
   void advance();
   CommandType commandType();
