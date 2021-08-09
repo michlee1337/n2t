@@ -20,6 +20,8 @@ class Parser {
  private:
   std::istream& in_;
   std::string cur_line_;
+  std::streampos pos_;
+  bool isCommand();
 
  public:
   explicit Parser(std::istream &instream) : in_(instream) {};
