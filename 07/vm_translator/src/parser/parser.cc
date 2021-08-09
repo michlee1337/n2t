@@ -68,4 +68,8 @@ bool Parser::isCommand() {
   return !isComment and !isBlank;
 }
 
+std::string Parser::cur_line() {
+  return cur_line_;
+}
+
 }  // namespace n2t
