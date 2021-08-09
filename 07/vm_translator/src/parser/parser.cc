@@ -62,4 +62,10 @@ std::string Parser::arg2() {
   return cur_line_.substr(cur_line_.find(" ")+1, std::string::npos);
 }
 
+bool Parser::isCommand() {
+  bool isComment = cur_line_[0] == '/' && cur_line_[1] == '/';
+  bool isBlank = std::all_of(cur_line_.begin(), cur_line_.end(),isspace);
+  return !isComment and !isBlank;
+}
+
 }  // namespace n2t
