@@ -83,4 +83,22 @@ TEST_F(ParserTest, advance_trailing_whitespace) {
   EXPECT_EQ(parser_.cur_line(), "eq");
 }
 
+TEST_F(ParserTest, commandType_Push) {
+  dummy_in_.str("push constant 7");
+  parser_.advance();
+  EXPECT_EQ(parser_.commandType(), CommandType::C_PUSH);
+}
+
+TEST_F(ParserTest, commandType_Pop) {
+  dummy_in_.str("pop constant 7");
+  parser_.advance();
+  EXPECT_EQ(parser_.commandType(), CommandType::C_POP);
+}
+
+TEST_F(ParserTest, commandType_Arithmetic) {
+  dummy_in_.str("add");
+  parser_.advance();
+  EXPECT_EQ(parser_.commandType(), CommandType::C_ARITHMETIC);
+}
+
 }  // namespace n2t
