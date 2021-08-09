@@ -26,9 +26,10 @@ class Parser {
   bool hasMoreCommands();
   void advance();
   CommandType commandType();
-  int arg1();
-  int arg2();
-}
+  std::string arg1();
+  std::string arg2();
+  std::string cur_line();
+};
 
 }  // namespace n2t
 
