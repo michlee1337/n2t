@@ -29,7 +29,23 @@ target_link_libraries(
   PUBLIC parser
 )
 
-add_test(
-  NAME parser_test
-  COMMAND parser_test
+add_executable(
+  coder_test
+  coder/coder_test.cc
 )
+
+target_link_libraries(
+  coder_test
+  PUBLIC gtest_main
+  PUBLIC coder
+)
+
+
+# add_test(
+#   NAME parser_test
+#   COMMAND parser_test
+# )
+
+include(GoogleTest)
+gtest_discover_tests(parser_test)
+gtest_discover_tests(coder_test)
